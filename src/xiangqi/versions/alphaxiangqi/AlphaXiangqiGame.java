@@ -15,13 +15,25 @@ import xiangqi.common.XiangqiPiece;
  */
 public class AlphaXiangqiGame implements XiangqiGame {
 
+	private int moveCount;
+	private String moveMessage;
+	
+	public AlphaXiangqiGame() {
+		moveCount = 0;
+	}
 	/* (non-Javadoc)
 	 * @see xiangqi.common.XiangqiGame#makeMove(xiangqi.common.XiangqiCoordinate, xiangqi.common.XiangqiCoordinate)
 	 */
 	@Override
 	public MoveResult makeMove(XiangqiCoordinate source, XiangqiCoordinate destination) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if (destination.getRank() > source.getRank())
+		{
+			this.moveMessage = "Illegal Move.";
+			return MoveResult.ILLEGAL;
+		}
+		
+		return moveCount++ == 0? MoveResult.OK : MoveResult.RED_WINS;
 	}
 
 	/* (non-Javadoc)
@@ -30,7 +42,7 @@ public class AlphaXiangqiGame implements XiangqiGame {
 	@Override
 	public String getMoveMessage() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.moveMessage;
 	}
 
 	/* (non-Javadoc)
@@ -38,7 +50,7 @@ public class AlphaXiangqiGame implements XiangqiGame {
 	 */
 	@Override
 	public XiangqiPiece getPieceAt(XiangqiCoordinate where, XiangqiColor aspect) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
