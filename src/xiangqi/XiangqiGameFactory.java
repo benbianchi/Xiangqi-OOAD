@@ -13,6 +13,7 @@
 package xiangqi;
 
 import xiangqi.AlphaXiangqi.AlphaXiangqiTestCases;
+import xiangqi.betaxiangqi.BetaXiangqiGame;
 import xiangqi.common.*;
 import xiangqi.versions.alphaxiangqi.AlphaXiangqiGame;
 
@@ -29,6 +30,11 @@ public class XiangqiGameFactory
 	 */
 	public static XiangqiGame makeXiangqiGame(XiangqiGameVersion version)
 	{
-		return version == XiangqiGameVersion.ALPHA_XQ ? new AlphaXiangqiGame() : null;
+		if (version==XiangqiGameVersion.ALPHA_XQ)
+			return new AlphaXiangqiGame();
+		
+		else
+			return new BetaXiangqiGame();		
+		
 	}
 }

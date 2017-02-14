@@ -3,11 +3,16 @@
  */
 package xiangqi.versions.alphaxiangqi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiGame;
 import xiangqi.common.XiangqiPiece;
+import xiangqi.common.XiangqiPieceType;
+import xiangqi.versions.alphaxiangqi.common.AlphaXiangqiPieceImpl;
 
 /**
  * @author ben
@@ -15,10 +20,26 @@ import xiangqi.common.XiangqiPiece;
  */
 public class AlphaXiangqiGame implements XiangqiGame {
 
+	/**
+	 * How many moves have been made this game
+	 */
 	private int moveCount;
+	
+	/**
+	 * The moveMessage returned
+	 */
 	private String moveMessage;
 	
+	/**
+	 * The state of the game.
+	 */
+	private List<XiangqiPiece> piecesOnBoard;
+	
+	/**
+	 * Instantiate a new AlphaXiangqiGame
+	 */
 	public AlphaXiangqiGame() {
+		piecesOnBoard =new ArrayList<XiangqiPiece>();
 		moveCount = 0;
 	}
 	/* (non-Javadoc)
@@ -51,7 +72,7 @@ public class AlphaXiangqiGame implements XiangqiGame {
 	@Override
 	public XiangqiPiece getPieceAt(XiangqiCoordinate where, XiangqiColor aspect) {
 		
-		return null;
+		return AlphaXiangqiPieceImpl.makePiece(XiangqiPieceType.NONE, XiangqiColor.NONE);
 	}
 
 }

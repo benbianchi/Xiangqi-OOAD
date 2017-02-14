@@ -38,5 +38,24 @@ public class TestCoordinate implements XiangqiCoordinate {
 	public int getFile() {
 		return file;
 	}
+	
+	public int hashCode()
+	{
+		int sum = rank + file;
+		return sum * (sum +1)/2 + file;
+		
+	}
+	@Override
+	public boolean equals(Object t)
+	{
+		if (!(t instanceof XiangqiCoordinate))
+			return false;
+		
+		if (	((XiangqiCoordinate)t ).getFile() == file && ((XiangqiCoordinate)t ).getRank() == rank)
+			return true;
+		
+		return false;
+		
+	}
 
 }
