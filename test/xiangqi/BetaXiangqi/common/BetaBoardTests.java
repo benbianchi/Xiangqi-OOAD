@@ -8,15 +8,15 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import common.TestCoordinate;
 import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
-import xiangqi.gammaxiangqi.common.Board;
-import xiangqi.gammaxiangqi.common.PieceImpl;
-import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.GeneralMovementValidator;
+import xiangqi.studentbgbianchi.betaxiangqi.common.Board;
+import xiangqi.studentbgbianchi.betaxiangqi.common.PieceImpl;
+import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidatorsImpl.GeneralMovementValidator;
+import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 
 /**
  * @author ben
@@ -43,7 +43,7 @@ public class BetaBoardTests {
 	@Test
 	public void QueryPieceNotThereReturnsNone()
 	{
-		XiangqiPiece  p = board.getPieceAt(TestCoordinate.makeCoordinate(1, 1));
+		XiangqiPiece  p = board.getPieceAt(Coordinate.makeCoordinate(1, 1));
 		
 		assertEquals(p.getPieceType(),XiangqiPieceType.NONE);
 		assertEquals(p.getColor(),XiangqiColor.NONE);
@@ -53,7 +53,7 @@ public class BetaBoardTests {
 	public void QueryRedGeneralCoordinateReturnsRedGeneral()
 	{
 		XiangqiPiece general = PieceImpl.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.RED, new GeneralMovementValidator());
-		TestCoordinate generalCoord = TestCoordinate.makeCoordinate(1,1);
+		Coordinate generalCoord = Coordinate.makeCoordinate(1,1);
 		
 		board.placePiece(general, generalCoord);
 		
@@ -67,7 +67,7 @@ public class BetaBoardTests {
 	public void QueryBlackGeneralCoordinateReturnsBlackGeneral()
 	{
 		XiangqiPiece general = PieceImpl.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.BLACK, new GeneralMovementValidator());
-		TestCoordinate generalCoord = TestCoordinate.makeCoordinate(3,5);
+		Coordinate generalCoord = Coordinate.makeCoordinate(3,5);
 		
 		board.placePiece(general, generalCoord);
 		
@@ -75,5 +75,11 @@ public class BetaBoardTests {
 		
 		assertEquals(p.getPieceType(),XiangqiPieceType.GENERAL);
 		assertEquals(p.getColor(),XiangqiColor.BLACK);
+	}
+	
+	@Test
+	public void testUpdatePieceWorks()
+	{
+		
 	}
 }

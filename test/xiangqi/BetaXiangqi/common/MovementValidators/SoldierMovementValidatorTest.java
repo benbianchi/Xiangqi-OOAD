@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import common.TestCoordinate;
 import xiangqi.XiangqiGameFactory;
 import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
@@ -14,8 +13,9 @@ import xiangqi.common.XiangqiGame;
 import xiangqi.common.XiangqiGameVersion;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
-import xiangqi.gammaxiangqi.common.PieceImpl;
-import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.SoldierMovementValidator;
+import xiangqi.studentbgbianchi.betaxiangqi.common.PieceImpl;
+import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidatorsImpl.SoldierMovementValidator;
+import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 
 public class SoldierMovementValidatorTest {
 
@@ -36,9 +36,9 @@ public class SoldierMovementValidatorTest {
 	@Test
 	public void SoldierCanMoveForward()
 	{
-		XiangqiCoordinate redSoldierCoord = TestCoordinate.makeCoordinate(2, 3);
-		XiangqiCoordinate redSoldierNewCoord = TestCoordinate.makeCoordinate(3, 3);
-		redPiece = beta.getPieceAt(TestCoordinate.makeCoordinate(2, 3), XiangqiColor.RED);
+		XiangqiCoordinate redSoldierCoord = Coordinate.makeCoordinate(2, 3);
+		XiangqiCoordinate redSoldierNewCoord = Coordinate.makeCoordinate(3, 3);
+		redPiece = beta.getPieceAt(Coordinate.makeCoordinate(2, 3), XiangqiColor.RED);
 		
 		MoveResult r = beta.makeMove(redSoldierCoord, redSoldierNewCoord);
 		
@@ -52,9 +52,9 @@ public class SoldierMovementValidatorTest {
 	@Test
 	public void SoldierCANTMoveBACKWARD()
 	{
-		XiangqiCoordinate redSoldierCoord = TestCoordinate.makeCoordinate(3, 3);
-		XiangqiCoordinate redSoldierForwardCoord = TestCoordinate.makeCoordinate(4,3);
-		redPiece = beta.getPieceAt(TestCoordinate.makeCoordinate(2, 3), XiangqiColor.RED);
+		XiangqiCoordinate redSoldierCoord = Coordinate.makeCoordinate(3, 3);
+		XiangqiCoordinate redSoldierForwardCoord = Coordinate.makeCoordinate(4,3);
+		redPiece = beta.getPieceAt(Coordinate.makeCoordinate(2, 3), XiangqiColor.RED);
 		
 		beta.makeMove(redSoldierCoord, redSoldierForwardCoord);
 		
@@ -67,9 +67,9 @@ public class SoldierMovementValidatorTest {
 	@Test
 	public void SoldierCANTMoveSideways()
 	{
-		XiangqiCoordinate redSoldierCoord = TestCoordinate.makeCoordinate(2, 3);
-		XiangqiCoordinate redSoldierForwardCoord = TestCoordinate.makeCoordinate(2,4);
-		redPiece = beta.getPieceAt(TestCoordinate.makeCoordinate(2, 3), XiangqiColor.RED);
+		XiangqiCoordinate redSoldierCoord = Coordinate.makeCoordinate(2, 3);
+		XiangqiCoordinate redSoldierForwardCoord = Coordinate.makeCoordinate(2,4);
+		redPiece = beta.getPieceAt(Coordinate.makeCoordinate(2, 3), XiangqiColor.RED);
 		
 		MoveResult r = beta.makeMove(redSoldierCoord, redSoldierForwardCoord);
 		

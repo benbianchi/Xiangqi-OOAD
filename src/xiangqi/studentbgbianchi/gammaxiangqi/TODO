@@ -1,0 +1,7 @@
+-o	Cannon Mov
+X	General Mov
+X	Elephant Mov
+-o	Horse Mov
+X	Advisor Mov
+o	Soldier Mov
+o 	CompletionError

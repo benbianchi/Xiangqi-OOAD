@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import common.TestCoordinate;
 import xiangqi.XiangqiGameFactory;
 import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
@@ -14,6 +13,7 @@ import xiangqi.common.XiangqiGame;
 import xiangqi.common.XiangqiGameVersion;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
+import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 
 public class AdvisorMovementValidatorTest {
 
@@ -34,9 +34,9 @@ public class AdvisorMovementValidatorTest {
 	@Test
 	public void AdvisorCanMoveDiagonally()
 	{
-		XiangqiCoordinate redAdvisorCoord = TestCoordinate.makeCoordinate(1, 4);
-		XiangqiCoordinate redAdvisorNewCoord = TestCoordinate.makeCoordinate(2, 5);
-		redPiece = beta.getPieceAt(TestCoordinate.makeCoordinate(1, 4), XiangqiColor.RED);
+		XiangqiCoordinate redAdvisorCoord = Coordinate.makeCoordinate(1, 4);
+		XiangqiCoordinate redAdvisorNewCoord = Coordinate.makeCoordinate(2, 5);
+		redPiece = beta.getPieceAt(Coordinate.makeCoordinate(1, 4), XiangqiColor.RED);
 		
 		MoveResult r = beta.makeMove(redAdvisorCoord, redAdvisorNewCoord);
 		
@@ -50,9 +50,9 @@ public class AdvisorMovementValidatorTest {
 	@Test
 	public void AdvisorCANTMoveFORWARD()
 	{
-		XiangqiCoordinate redSoldierCoord = TestCoordinate.makeCoordinate(1, 4);
-		XiangqiCoordinate redSoldierNewCoord = TestCoordinate.makeCoordinate(2, 4);
-		redPiece = beta.getPieceAt(TestCoordinate.makeCoordinate(1, 4), XiangqiColor.RED);
+		XiangqiCoordinate redSoldierCoord = Coordinate.makeCoordinate(1, 4);
+		XiangqiCoordinate redSoldierNewCoord = Coordinate.makeCoordinate(2, 4);
+		redPiece = beta.getPieceAt(Coordinate.makeCoordinate(1, 4), XiangqiColor.RED);
 		
 		MoveResult r = beta.makeMove(redSoldierCoord, redSoldierNewCoord);
 		
@@ -68,8 +68,8 @@ public class AdvisorMovementValidatorTest {
 	@Test
 	public void AdvisorCANTMoveSideways()
 	{
-		XiangqiCoordinate redAdvisorCoord = TestCoordinate.makeCoordinate(1, 4);
-		XiangqiCoordinate redAdvisorForwardCoord = TestCoordinate.makeCoordinate(1,5);
+		XiangqiCoordinate redAdvisorCoord = Coordinate.makeCoordinate(1, 4);
+		XiangqiCoordinate redAdvisorForwardCoord = Coordinate.makeCoordinate(1,5);
 		redPiece = beta.getPieceAt(redAdvisorCoord , XiangqiColor.RED);
 		
 		MoveResult r = beta.makeMove(redAdvisorCoord, redAdvisorForwardCoord);

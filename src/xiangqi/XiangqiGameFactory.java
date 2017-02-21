@@ -14,9 +14,9 @@ package xiangqi;
 
 import xiangqi.AlphaXiangqi.AlphaXiangqiTestCases;
 import xiangqi.common.*;
-import xiangqi.gammaxiangqi.BetaXiangqiGame;
-import xiangqi.gammaxiangqi.GammaXiangqiGame;
-import xiangqi.versions.alphaxiangqi.AlphaXiangqiGame;
+import xiangqi.student.bgbianchi.betaxiangqi.BetaXiangqiGame;
+import xiangqi.studentbgbianch.versions.alphaxiangqi.AlphaXiangqiGame;
+import xiangqi.studentbgbianchi.gammaxiangqi.GammaXiangqiGame;
 
 /**
  * A simple factory object that creates the appropriate instance of a XiangqiGame.

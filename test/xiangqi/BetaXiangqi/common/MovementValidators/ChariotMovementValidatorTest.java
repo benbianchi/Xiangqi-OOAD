@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import common.TestCoordinate;
 import xiangqi.XiangqiGameFactory;
 import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
@@ -14,7 +13,8 @@ import xiangqi.common.XiangqiGame;
 import xiangqi.common.XiangqiGameVersion;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
-import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.ChariotMovementValidator;
+import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidatorsImpl.ChariotMovementValidator;
+import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 
 public class ChariotMovementValidatorTest {
 
@@ -41,7 +41,7 @@ public class ChariotMovementValidatorTest {
 	{
 
 		
-		MoveResult shouldBeOK = v.validate(TestCoordinate.makeCoordinate(3, 3), TestCoordinate.makeCoordinate(3, 2));
+		MoveResult shouldBeOK = v.validate(Coordinate.makeCoordinate(3, 3), Coordinate.makeCoordinate(3, 2));
 		assertEquals(shouldBeOK,MoveResult.OK);
 		
 	}
@@ -51,7 +51,7 @@ public class ChariotMovementValidatorTest {
 	{
 
 		
-		MoveResult shouldBeOK = v.validate(TestCoordinate.makeCoordinate(1, 1), TestCoordinate.makeCoordinate(2, 1));
+		MoveResult shouldBeOK = v.validate(Coordinate.makeCoordinate(1, 1), Coordinate.makeCoordinate(2, 1));
 		assertEquals(shouldBeOK,MoveResult.OK);
 		
 	}
@@ -62,7 +62,7 @@ public class ChariotMovementValidatorTest {
 	{
 		
 		
-		MoveResult shouldBeIllegal = v.validate(TestCoordinate.makeCoordinate(1, 1), TestCoordinate.makeCoordinate(3, 3));
+		MoveResult shouldBeIllegal = v.validate(Coordinate.makeCoordinate(1, 1), Coordinate.makeCoordinate(3, 3));
 		assertEquals(shouldBeIllegal ,MoveResult.ILLEGAL);
 	}
 }
