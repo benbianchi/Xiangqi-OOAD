@@ -37,7 +37,7 @@ public class XiangqiGameFactory
 		if (version==XiangqiGameVersion.BETA_XQ)
 			return new BetaXiangqiGame();		
 		
-		if (version==XiangqiGameVersion.BETA_XQ)
+		if (version==XiangqiGameVersion.GAMMA_XQ)
 			return new GammaXiangqiGame();	
 		
 		return null;

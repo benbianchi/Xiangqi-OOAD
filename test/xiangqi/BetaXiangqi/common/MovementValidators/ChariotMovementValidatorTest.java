@@ -41,7 +41,7 @@ public class ChariotMovementValidatorTest {
 	{
 
 		
-		MoveResult shouldBeOK = v.validate(TestCoordinate.makeCoordinate(1, 1), TestCoordinate.makeCoordinate(1, 2));
+		MoveResult shouldBeOK = v.validate(TestCoordinate.makeCoordinate(3, 3), TestCoordinate.makeCoordinate(3, 2));
 		assertEquals(shouldBeOK,MoveResult.OK);
 		
 	}

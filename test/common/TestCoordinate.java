@@ -57,5 +57,11 @@ public class TestCoordinate implements XiangqiCoordinate {
 		return false;
 		
 	}
-
+	@Override
+	public
+	String toString()
+	{
+		return rank+""+file;
+		
+	}
 }

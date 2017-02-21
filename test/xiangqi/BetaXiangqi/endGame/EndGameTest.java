@@ -40,11 +40,11 @@ public class EndGameTest {
 		
 		game.getBoard().placePiece(
 				PieceImpl.makePiece(XiangqiPieceType.CHARIOT, XiangqiColor.RED, new ChariotMovementValidator()),
-				TestCoordinate.makeCoordinate(5, 4));
+				TestCoordinate.makeCoordinate(4, 4));
 		
 		game.getBoard().placePiece(
 				PieceImpl.makePiece(XiangqiPieceType.CHARIOT, XiangqiColor.RED, new ChariotMovementValidator()),
-				TestCoordinate.makeCoordinate(5, 5));
+				TestCoordinate.makeCoordinate(4, 5));
 		
 		boolean checkmate = game.isGeneralCheckmated(XiangqiColor.BLACK);
 		
@@ -74,7 +74,7 @@ public class EndGameTest {
 		
 		game.getBoard().placePiece(
 				PieceImpl.makePiece(XiangqiPieceType.CHARIOT, XiangqiColor.RED, new ChariotMovementValidator()),
-				TestCoordinate.makeCoordinate(1, 5));
+				TestCoordinate.makeCoordinate(1, 1));
 		
 		boolean checkmate = game.isGeneralCheckmated(XiangqiColor.BLACK);
 		

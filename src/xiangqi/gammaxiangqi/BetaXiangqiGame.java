@@ -31,11 +31,18 @@ public class BetaXiangqiGame implements XiangqiGame {
 	private final int BETA_XQ_MOVECOUNT = 20;
 	private final String ERROR_ILLEGAL_MOVE = "Error. The move you provided is illegal in Beta Xiangqi.";
 	protected Board board;
-	protected Integer[] palaceBoundaries = new Integer[4];
+	protected Integer[] palaceBoundaries = {0,2,1,5};
 	private String error;
-	private XiangqiColor color;
+	private XiangqiColor color = XiangqiColor.RED;
 	protected int moveCount = 0;
+	
+	
 
+	public BetaXiangqiGame()
+	{
+		
+		this.initialize();
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -46,24 +53,39 @@ public class BetaXiangqiGame implements XiangqiGame {
 	@Override
 	public MoveResult makeMove(XiangqiCoordinate source, XiangqiCoordinate destination) {
 
-		moveCount--;
+		
 		if (moveCount < 0)
 			return MoveResult.DRAW;
 
-		if (color == XiangqiColor.BLACK) {
-			destination = convertRedCoordToBlackAspect(this.getBoard(), destination);
-			source = convertRedCoordToBlackAspect(this.getBoard(), source);
-		}
 
 		XiangqiPiece piece = getPieceAt(source, color);
 		
-		
 		MoveResult result = ((PieceImpl) piece).validate(source, destination);
 		
+		if (piece.getColor() != color)
+			result = MoveResult.ILLEGAL;
+		
+		
 		if (result==MoveResult.ILLEGAL)
+		{
 			this.error = ERROR_ILLEGAL_MOVE;
+		}	
 		else
+		{
 			this.error = NO_ERROR;
+			removePiece(source,color);
+			XiangqiPiece xpiece = getPieceAt(source, color);
+			placePiece(piece, destination,color );
+			
+			xpiece = getPieceAt(destination, color);
+			
+			moveCount--;
+		}
+		
+		if (color == XiangqiColor.BLACK)
+			color = XiangqiColor.RED;
+		else
+			color = XiangqiColor.BLACK;
 		
 		return result;
 	}
@@ -96,6 +118,25 @@ public class BetaXiangqiGame implements XiangqiGame {
 		return this.board.getPieceAt(where);
 
 	}
+	
+	public XiangqiPiece removePiece(XiangqiCoordinate where, XiangqiColor aspect) {
+
+		if (aspect == XiangqiColor.BLACK)
+			where = convertRedCoordToBlackAspect(this.getBoard(), where);
+
+		return this.board.removePiece(where);
+
+	}
+
+	public void placePiece(XiangqiPiece piece, XiangqiCoordinate where, XiangqiColor aspect) {
+
+		if (aspect == XiangqiColor.BLACK)
+			where = convertRedCoordToBlackAspect(this.getBoard(), where);
+
+		this.board.placePiece(piece,where);
+
+	}
+	
 
 	/**
 	 * Getter for board
@@ -111,6 +152,7 @@ public class BetaXiangqiGame implements XiangqiGame {
 	public void createTestBoard() {
 		this.board = new Board(5, 5);
 		AbsMovementValidator.setBounds(this.board);
+		this.board.palaceBoundaries = this.palaceBoundaries;
 	}
 	/**
 	 * Default initialization of board. Red Vs Black each team has a soldier, general, two chariots
@@ -120,6 +162,8 @@ public class BetaXiangqiGame implements XiangqiGame {
 
 		this.board = new Board(5, 5);
 		AbsMovementValidator.setBounds(this.board);
+		this.board.palaceBoundaries = this.palaceBoundaries;
+		
 		this.moveCount = BETA_XQ_MOVECOUNT;
 		
 		/*
@@ -195,8 +239,12 @@ public class BetaXiangqiGame implements XiangqiGame {
 			 * Im not sure Why I am getting a 0,0 coordinate in here.
 			 */
 			if (!(x.equals(TestCoordinate.makeCoordinate(0, 0))))
-				if (canAttack(board.getPieceAt(x), x, generalCoord))
-					return true;
+			{
+				XiangqiPiece potenetialAttacker = board.getPieceAt(x);
+				if (potenetialAttacker.getColor() != c)
+					if (canAttack(potenetialAttacker, x, generalCoord))
+						return true;
+			}
 		}
 
 		return false;

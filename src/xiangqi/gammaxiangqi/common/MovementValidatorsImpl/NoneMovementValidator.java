@@ -14,7 +14,7 @@ public class NoneMovementValidator extends AbsMovementValidator {
 	 * This movement validator will always fail. If this is assigned to a class, then it isnt a valid piece.
 	 */
 	public MoveResult validate(XiangqiCoordinate fromCoord, XiangqiCoordinate toCoord) {
-		return super.validate(toCoord, toCoord);
+		return MoveResult.ILLEGAL;
 	}
 
 }

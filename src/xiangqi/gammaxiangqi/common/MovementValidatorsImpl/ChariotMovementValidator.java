@@ -15,7 +15,9 @@ public class ChariotMovementValidator extends AbsMovementValidator {
 	 */
 	public MoveResult validate(XiangqiCoordinate fromCoord, XiangqiCoordinate toCoord) {
 		// TODO Auto-generated method stub
-		if (fromCoord.getRank() == toCoord.getRank() || fromCoord.getFile() == toCoord.getFile() && 
+	
+		
+		if ((fromCoord.getRank() == toCoord.getRank() || fromCoord.getFile() == toCoord.getFile()) && 
 				(!toCoord.equals(fromCoord)) && (super.validate(fromCoord, toCoord) == MoveResult.OK) )
 			return MoveResult.OK;
 		

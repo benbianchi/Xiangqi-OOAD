@@ -20,12 +20,14 @@ public class GeneralMovementValidator extends AbsMovementValidator {
 		
 		//Generally can move horizontally by one between 12 and 14
 		
+		if (isFlyingGeneral(fromCoord,toCoord) != MoveResult.ILLEGAL)
+			return isFlyingGeneral(fromCoord,toCoord);
 		
 		if (super.validate(fromCoord, toCoord) != MoveResult.OK)
 			return MoveResult.ILLEGAL;
 		
 		if (this.board.isWithinPalace(toCoord) && isGeneralMovingOrthognally(fromCoord,toCoord) )
-				return isFlyingGeneral(fromCoord,toCoord);
+				return MoveResult.OK;
 			
 		
 		
@@ -58,10 +60,7 @@ public class GeneralMovementValidator extends AbsMovementValidator {
 					return MoveResult.RED_WINS;
 				else
 					return MoveResult.BLACK_WINS;
-			}
-		if (fromCoord.getRank() == toCoord.getRank() && Math.abs( toCoord.getFile() - fromCoord.getFile() ) == 1 )
-			return MoveResult.OK;
-		
+			}		
 		return MoveResult.ILLEGAL;
 	}
 

@@ -30,7 +30,7 @@ public class Board {
 	 */
 	private Integer[] bounds = new Integer[2];
 	
-	private Integer[] palaceBoundaries = new Integer[4];
+	public Integer[] palaceBoundaries = new Integer[4];
 
 	/**
 	 * Create a board
@@ -55,8 +55,8 @@ public class Board {
 	public boolean isWithinPalace(XiangqiCoordinate coord)
 	{
 		
-		if (coord.getFile() > palaceBoundaries[0] && coord.getFile() < palaceBoundaries[1] &&
-				coord.getRank() > palaceBoundaries[2] && coord.getRank() < palaceBoundaries[3])
+		if (coord.getRank() > palaceBoundaries[0] && coord.getRank() < palaceBoundaries[1] &&
+				coord.getFile() > palaceBoundaries[2] && coord.getFile() < palaceBoundaries[3])
 			return true;
 		
 		return false;
@@ -69,11 +69,13 @@ public class Board {
 	 * @return XiangqiPiece piece found
 	 */
 	public XiangqiPiece getPieceAt(XiangqiCoordinate coord) {
+		XiangqiPiece p = mapCoordToPiece.get(coord);
+		XiangqiCoordinate c = TestCoordinate.makeCoordinate(coord.getRank(), coord.getFile());
 
-		for (XiangqiCoordinate c : mapCoordToPiece.keySet()) {
-			if (coord.getFile() == c.getFile() && coord.getRank() == c.getRank())
-				return mapCoordToPiece.get(c);
-		}
+		p = mapCoordToPiece.get(c);
+	
+		if (p != null)
+			return p;
 
 		/*
 		 * if (mapCoordToPiece.containsKey(coord)) return
@@ -89,10 +91,7 @@ public class Board {
 	 * @param coord the key we will use to lookup the piece
 	 */
 	public void placePiece(XiangqiPiece piece, XiangqiCoordinate coord) {
-
-		if (!mapCoordToPiece.containsKey(coord))
-			mapCoordToPiece.put(coord, piece);
-
+			mapCoordToPiece.put(TestCoordinate.makeCoordinate(coord.getRank(), coord.getFile()), piece);
 	}
 
 	/**
@@ -101,18 +100,15 @@ public class Board {
 	 * @return XiangqiPiece removed
 	 */
 	public XiangqiPiece removePiece(XiangqiCoordinate coord) {
-		// Assume no Collision
-
-		for (XiangqiCoordinate c : mapCoordToPiece.keySet()) {
-			if (coord.getFile() == c.getFile() && coord.getRank() == c.getRank()) {
-				XiangqiPiece p = mapCoordToPiece.get(coord);
-				mapCoordToPiece.remove(coord);
-				return p;
-			}
-		}
-
-		return PieceImpl.makePiece(XiangqiPieceType.NONE, XiangqiColor.NONE, new NoneMovementValidator());
-
+		// Assume no Collision	
+		
+		XiangqiCoordinate c = TestCoordinate.makeCoordinate(coord.getRank(), coord.getFile());
+		XiangqiPiece p = mapCoordToPiece.get(c);
+				mapCoordToPiece.remove(TestCoordinate.makeCoordinate(coord.getRank(), coord.getFile()) );
+		
+	return p;
+		
+	
 	}
 
 	/**
@@ -144,6 +140,9 @@ public class Board {
 	 */
 	public boolean isBlocked(XiangqiCoordinate from, XiangqiCoordinate to) {
 
+		if (from.equals(to))
+			return false;
+		
 		if (from.getRank() == to.getRank()) {// Horizontal;
 			int i = from.getFile();
 			int step = (to.getFile() - from.getFile()) / Math.abs(from.getFile() - to.getFile());
@@ -212,9 +211,11 @@ public class Board {
 	 * @return XiangqiCoordinate that represents the location of the general
 	 */
 	public XiangqiCoordinate getGeneralCoordinate(XiangqiColor c) {
-	
+		
 		for (XiangqiCoordinate cord : mapCoordToPiece.keySet()) {
-			if (mapCoordToPiece.get(cord).getPieceType() == XiangqiPieceType.GENERAL && mapCoordToPiece.get(cord).getColor() == c )
+			XiangqiPiece p = mapCoordToPiece.get(cord);
+			
+			if (p.getPieceType() == XiangqiPieceType.GENERAL && p.getColor() == c )
 				return cord;
 			}
 		

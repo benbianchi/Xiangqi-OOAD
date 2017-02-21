@@ -117,8 +117,8 @@ public class BetaXiangqiTestCases {
 	@Test
 	public void isBlockedVertically(){
 		
-		XiangqiCoordinate redGeneralCoord = TestCoordinate.makeCoordinate(3, 2);
-		XiangqiCoordinate blackGeneralRedAspect= TestCoordinate.makeCoordinate(5, 2);
+		XiangqiCoordinate redGeneralCoord = TestCoordinate.makeCoordinate(1, 3);
+		XiangqiCoordinate blackGeneralRedAspect= TestCoordinate.makeCoordinate(2, 3);
 		
 		boolean expectBlocked = game.getBoard().isBlocked(redGeneralCoord, blackGeneralRedAspect);
 		

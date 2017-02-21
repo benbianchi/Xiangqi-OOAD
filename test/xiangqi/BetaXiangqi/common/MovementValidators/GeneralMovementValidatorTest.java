@@ -14,19 +14,22 @@ import xiangqi.common.XiangqiGame;
 import xiangqi.common.XiangqiGameVersion;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
+import xiangqi.gammaxiangqi.BetaXiangqiGame;
+import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.ChariotMovementValidator;
+import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.GeneralMovementValidator;
 
 public class GeneralMovementValidatorTest {
 
-	XiangqiGame beta;
+	BetaXiangqiGame beta;
 	XiangqiPiece blackPiece;
 	XiangqiPiece redPiece;
 	
 	@Before
 	public void setup() {
 		
-		beta  = XiangqiGameFactory.makeXiangqiGame(XiangqiGameVersion.BETA_XQ);
+		beta  = (BetaXiangqiGame) XiangqiGameFactory.makeXiangqiGame(XiangqiGameVersion.BETA_XQ);
+		beta.createTestBoard();
 		
-		beta.initialize();
 		
 		//Move Adivsors outta the way.
 		
@@ -38,43 +41,21 @@ public class GeneralMovementValidatorTest {
 	{
 
 		
-		beta.makeMove(TestCoordinate.makeCoordinate(1,2), TestCoordinate.makeCoordinate(2,1));
-		beta.makeMove(TestCoordinate.makeCoordinate(1,4), TestCoordinate.makeCoordinate(2,5));
-		
-		XiangqiCoordinate redGeneralCoord = TestCoordinate.makeCoordinate(1,3);
-		XiangqiCoordinate redGeneralNewCoord = TestCoordinate.makeCoordinate(1, 4);
-		redPiece = beta.getPieceAt(redGeneralCoord, XiangqiColor.RED);
-		
-		XiangqiPiece query1 = beta.getPieceAt(redGeneralNewCoord, XiangqiColor.RED);
-		
-		MoveResult r = beta.makeMove(redGeneralCoord, redGeneralNewCoord);
-		
-		assertEquals(r,MoveResult.OK);
-		
-		
-		XiangqiPiece query = beta.getPieceAt(redGeneralNewCoord, XiangqiColor.RED);
+		GeneralMovementValidator gv = new GeneralMovementValidator();
 
-		assertEquals(query.getPieceType(),XiangqiPieceType.GENERAL);
+		MoveResult m = gv.validate(TestCoordinate.makeCoordinate(1, 3), TestCoordinate.makeCoordinate(1, 4));
+		
+		assertEquals(m,MoveResult.OK);
 	}
 
 	@Test
-	public void GeneralCANMoveFORWARD()
+	public void GeneralCANTMoveFORWARD()
 	{
-		beta.makeMove(TestCoordinate.makeCoordinate(2,3), TestCoordinate.makeCoordinate(2,4));
-		
-		XiangqiCoordinate redGeneralCoord = TestCoordinate.makeCoordinate(1, 5);
-		XiangqiCoordinate redGeneralNewCoord = TestCoordinate.makeCoordinate(1, 3);
-		
-		redPiece = beta.getPieceAt(TestCoordinate.makeCoordinate(1, 3), XiangqiColor.RED);
-		
-		MoveResult r = beta.makeMove(redGeneralCoord, redGeneralNewCoord);
-		
-		assertEquals(r,MoveResult.OK);
-		assertEquals(true,beta.getMoveMessage().length() > 1);
-		
-		XiangqiPiece query = beta.getPieceAt(redGeneralCoord, XiangqiColor.RED);
+		GeneralMovementValidator gv = new GeneralMovementValidator();
 
-		assertEquals(query.getPieceType(),XiangqiPieceType.GENERAL);
+		MoveResult m = gv.validate(TestCoordinate.makeCoordinate(2, 2), TestCoordinate.makeCoordinate(3, 2));
+		
+		assertEquals(m,MoveResult.ILLEGAL);
 	}
 	
 	
@@ -82,19 +63,10 @@ public class GeneralMovementValidatorTest {
 	public void GeneralCANTMoveDIAGONALLY()
 	{
 		
-		
-		XiangqiCoordinate redGeneralCoord = TestCoordinate.makeCoordinate(1, 3);
-		XiangqiCoordinate redGeneralNewCoord = TestCoordinate.makeCoordinate(2, 4);
-		
-		redPiece = beta.getPieceAt(TestCoordinate.makeCoordinate(1, 3), XiangqiColor.RED);
-		
-		MoveResult r = beta.makeMove(redGeneralCoord, redGeneralNewCoord);
-		
-		assertEquals(r,MoveResult.ILLEGAL);
-		assertEquals(true,beta.getMoveMessage().length() > 1);
-		
-		XiangqiPiece query = beta.getPieceAt(redGeneralCoord, XiangqiColor.RED);
+		GeneralMovementValidator gv = new GeneralMovementValidator();
 
-		assertEquals(query.getPieceType(),XiangqiPieceType.GENERAL);
+		MoveResult m = gv.validate(TestCoordinate.makeCoordinate(2, 2), TestCoordinate.makeCoordinate(3, 3));
+		
+		assertEquals(m,MoveResult.ILLEGAL);
 	}
 }
