@@ -1,12 +1,14 @@
 /**
  * 
  */
-package xiangqi.betaxiangqi.common;
+package xiangqi.gammaxiangqi.common;
 
+import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
+import xiangqi.gammaxiangqi.common.MovementValidators.MovementValidator;
 
 /**
  * @author ben
@@ -48,7 +50,7 @@ public class PieceImpl implements XiangqiPiece {
 		return pieceType;
 	}
 
-	public boolean validate(XiangqiCoordinate source, XiangqiCoordinate destination) {
+	public MoveResult validate(XiangqiCoordinate source, XiangqiCoordinate destination) {
 		return validator.validate(source, destination);
 		
 	}

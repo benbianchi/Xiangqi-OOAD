@@ -58,18 +58,18 @@ public class GeneralMovementValidatorTest {
 	}
 
 	@Test
-	public void GeneralCANTMoveFORWARD()
+	public void GeneralCANMoveFORWARD()
 	{
 		beta.makeMove(TestCoordinate.makeCoordinate(2,3), TestCoordinate.makeCoordinate(2,4));
 		
-		XiangqiCoordinate redGeneralCoord = TestCoordinate.makeCoordinate(1, 3);
-		XiangqiCoordinate redSoldierNewCoord = TestCoordinate.makeCoordinate(2, 3);
+		XiangqiCoordinate redGeneralCoord = TestCoordinate.makeCoordinate(1, 5);
+		XiangqiCoordinate redGeneralNewCoord = TestCoordinate.makeCoordinate(1, 3);
 		
 		redPiece = beta.getPieceAt(TestCoordinate.makeCoordinate(1, 3), XiangqiColor.RED);
 		
-		MoveResult r = beta.makeMove(redGeneralCoord, redSoldierNewCoord);
+		MoveResult r = beta.makeMove(redGeneralCoord, redGeneralNewCoord);
 		
-		assertEquals(r,MoveResult.ILLEGAL);
+		assertEquals(r,MoveResult.OK);
 		assertEquals(true,beta.getMoveMessage().length() > 1);
 		
 		XiangqiPiece query = beta.getPieceAt(redGeneralCoord, XiangqiColor.RED);
@@ -79,21 +79,21 @@ public class GeneralMovementValidatorTest {
 	
 	
 	@Test
-	public void SoldierCANTMoveDIAGONALLY()
+	public void GeneralCANTMoveDIAGONALLY()
 	{
 		
 		
-		XiangqiCoordinate redSoldierCoord = TestCoordinate.makeCoordinate(1, 3);
-		XiangqiCoordinate redSoldierNewCoord = TestCoordinate.makeCoordinate(2, 4);
+		XiangqiCoordinate redGeneralCoord = TestCoordinate.makeCoordinate(1, 3);
+		XiangqiCoordinate redGeneralNewCoord = TestCoordinate.makeCoordinate(2, 4);
 		
 		redPiece = beta.getPieceAt(TestCoordinate.makeCoordinate(1, 3), XiangqiColor.RED);
 		
-		MoveResult r = beta.makeMove(redSoldierCoord, redSoldierNewCoord);
+		MoveResult r = beta.makeMove(redGeneralCoord, redGeneralNewCoord);
 		
 		assertEquals(r,MoveResult.ILLEGAL);
 		assertEquals(true,beta.getMoveMessage().length() > 1);
 		
-		XiangqiPiece query = beta.getPieceAt(redSoldierCoord, XiangqiColor.RED);
+		XiangqiPiece query = beta.getPieceAt(redGeneralCoord, XiangqiColor.RED);
 
 		assertEquals(query.getPieceType(),XiangqiPieceType.GENERAL);
 	}

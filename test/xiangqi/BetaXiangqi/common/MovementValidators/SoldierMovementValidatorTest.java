@@ -7,8 +7,6 @@ import org.junit.Test;
 
 import common.TestCoordinate;
 import xiangqi.XiangqiGameFactory;
-import xiangqi.betaxiangqi.common.PieceImpl;
-import xiangqi.betaxiangqi.common.MovementValidators.SoldierMovementValidator;
 import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
@@ -16,6 +14,8 @@ import xiangqi.common.XiangqiGame;
 import xiangqi.common.XiangqiGameVersion;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
+import xiangqi.gammaxiangqi.common.PieceImpl;
+import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.SoldierMovementValidator;
 
 public class SoldierMovementValidatorTest {
 

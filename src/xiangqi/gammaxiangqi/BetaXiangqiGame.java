@@ -1,23 +1,22 @@
 /**
  * 
  */
-package xiangqi.betaxiangqi;
-
-import org.junit.experimental.theories.Theories;
+package xiangqi.gammaxiangqi;
 
 import common.TestCoordinate;
-import xiangqi.betaxiangqi.common.Board;
-import xiangqi.betaxiangqi.common.PieceImpl;
-import xiangqi.betaxiangqi.common.MovementValidators.AdvisorMovementValidator;
-import xiangqi.betaxiangqi.common.MovementValidators.ChariotMovementValidator;
-import xiangqi.betaxiangqi.common.MovementValidators.GeneralMovementValidator;
-import xiangqi.betaxiangqi.common.MovementValidators.SoldierMovementValidator;
 import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiGame;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
+import xiangqi.gammaxiangqi.common.Board;
+import xiangqi.gammaxiangqi.common.PieceImpl;
+import xiangqi.gammaxiangqi.common.MovementValidators.AbsMovementValidator;
+import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.AdvisorMovementValidator;
+import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.ChariotMovementValidator;
+import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.GeneralMovementValidator;
+import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.SoldierMovementValidator;
 
 /**
  * BetaXiangqi is a more indepth attempt at Xianqi, it implements different peices and movement validation. Along with testing
@@ -28,12 +27,14 @@ import xiangqi.common.XiangqiPieceType;
  */
 public class BetaXiangqiGame implements XiangqiGame {
 
+	private static final String NO_ERROR = "";
 	private final int BETA_XQ_MOVECOUNT = 20;
 	private final String ERROR_ILLEGAL_MOVE = "Error. The move you provided is illegal in Beta Xiangqi.";
-	private Board board;
+	protected Board board;
+	protected Integer[] palaceBoundaries = new Integer[4];
 	private String error;
 	private XiangqiColor color;
-	private int moveCount = BETA_XQ_MOVECOUNT;
+	protected int moveCount = 0;
 
 	/*
 	 * (non-Javadoc)
@@ -54,23 +55,19 @@ public class BetaXiangqiGame implements XiangqiGame {
 			source = convertRedCoordToBlackAspect(this.getBoard(), source);
 		}
 
-		XiangqiPiece piece;
-		if (source.getRank() > board.getBounds()[0] || source.getFile() > board.getBounds()[1] || source.getRank() < 0
-				|| source.getFile() < 0 || board.isBlocked(source, destination)) {
+		XiangqiPiece piece = getPieceAt(source, color);
+		
+		
+		MoveResult result = ((PieceImpl) piece).validate(source, destination);
+		
+		if (result==MoveResult.ILLEGAL)
 			this.error = ERROR_ILLEGAL_MOVE;
-			return MoveResult.ILLEGAL;
-		}
-		piece = getPieceAt(source, color);
-
-		if (((PieceImpl) piece).validate(source, destination)
-				&& getPieceAt(destination, color).getColor() != piece.getColor()) {
-			board.updatePiece(source, destination, piece);
-			return MoveResult.OK;
-		} else {
-			this.error = ERROR_ILLEGAL_MOVE;
-			return MoveResult.ILLEGAL;
-		}
+		else
+			this.error = NO_ERROR;
+		
+		return result;
 	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -113,6 +110,7 @@ public class BetaXiangqiGame implements XiangqiGame {
 	 */
 	public void createTestBoard() {
 		this.board = new Board(5, 5);
+		AbsMovementValidator.setBounds(this.board);
 	}
 	/**
 	 * Default initialization of board. Red Vs Black each team has a soldier, general, two chariots
@@ -121,7 +119,9 @@ public class BetaXiangqiGame implements XiangqiGame {
 	public void initialize(Object... args) {
 
 		this.board = new Board(5, 5);
-
+		AbsMovementValidator.setBounds(this.board);
+		this.moveCount = BETA_XQ_MOVECOUNT;
+		
 		/*
 		 * Populate Red's pieces First
 		 */
@@ -227,7 +227,7 @@ public class BetaXiangqiGame implements XiangqiGame {
 	 * @return boolean true if the piece can take the destination
 	 */
 	private boolean canAttack(XiangqiPiece p, XiangqiCoordinate from, XiangqiCoordinate to) {
-		if (((PieceImpl) p).validate(from, to) == true)
+		if (((PieceImpl) p).validate(from, to) == MoveResult.OK)
 			return true;
 
 		return false;
@@ -241,7 +241,7 @@ public class BetaXiangqiGame implements XiangqiGame {
 	private boolean canGeneralMoveOutOfCheck(XiangqiColor c) {
 		boolean canEvade = false;
 		XiangqiCoordinate source = this.board.getGeneralCoordinate(c);
-
+		
 		//Check spot to the left
 		if (makeMove(source, TestCoordinate.makeCoordinate(source.getRank(), source.getFile() - 1)) == MoveResult.OK)
 			if (isGeneralUnderAttack(c) == false) {

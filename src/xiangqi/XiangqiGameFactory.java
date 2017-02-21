@@ -13,8 +13,9 @@
 package xiangqi;
 
 import xiangqi.AlphaXiangqi.AlphaXiangqiTestCases;
-import xiangqi.betaxiangqi.BetaXiangqiGame;
 import xiangqi.common.*;
+import xiangqi.gammaxiangqi.BetaXiangqiGame;
+import xiangqi.gammaxiangqi.GammaXiangqiGame;
 import xiangqi.versions.alphaxiangqi.AlphaXiangqiGame;
 
 /**
@@ -33,8 +34,13 @@ public class XiangqiGameFactory
 		if (version==XiangqiGameVersion.ALPHA_XQ)
 			return new AlphaXiangqiGame();
 		
-		else
+		if (version==XiangqiGameVersion.BETA_XQ)
 			return new BetaXiangqiGame();		
+		
+		if (version==XiangqiGameVersion.BETA_XQ)
+			return new GammaXiangqiGame();	
+		
+		return null;
 		
 	}
 }

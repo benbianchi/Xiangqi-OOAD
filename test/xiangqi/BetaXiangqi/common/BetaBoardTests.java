@@ -9,14 +9,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import common.TestCoordinate;
-import xiangqi.betaxiangqi.common.Board;
-import xiangqi.betaxiangqi.common.PieceImpl;
-import xiangqi.betaxiangqi.common.MovementValidators.GeneralMovementValidator;
 import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
+import xiangqi.gammaxiangqi.common.Board;
+import xiangqi.gammaxiangqi.common.PieceImpl;
+import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.GeneralMovementValidator;
 
 /**
  * @author ben

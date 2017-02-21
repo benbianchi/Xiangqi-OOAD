@@ -1,5 +1,8 @@
-package xiangqi.betaxiangqi.common;
+package xiangqi.gammaxiangqi.common.MovementValidators;
 
+import java.util.function.Function;
+
+import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiCoordinate;
 
 public interface MovementValidator {
@@ -11,7 +14,10 @@ public interface MovementValidator {
 	 * @param fromCoord the source point
 	 * @param toCoord the destination point.
 	 * @return boolean representing the legality of the move
-	 */
-	boolean validate(XiangqiCoordinate fromCoord, XiangqiCoordinate toCoord );
+	 */ 
+	
 
+	MoveResult validate(XiangqiCoordinate fromCoord, XiangqiCoordinate toCoord );
+	
+	
 }

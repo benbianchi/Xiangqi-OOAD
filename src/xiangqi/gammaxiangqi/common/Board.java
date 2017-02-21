@@ -1,15 +1,15 @@
-package xiangqi.betaxiangqi.common;
+package xiangqi.gammaxiangqi.common;
 
 import java.util.HashMap;
 import java.util.Set;
 
 import common.TestCoordinate;
-import xiangqi.betaxiangqi.BetaXiangqiGame;
-import xiangqi.betaxiangqi.common.MovementValidators.NoneMovementValidator;
 import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
+import xiangqi.gammaxiangqi.BetaXiangqiGame;
+import xiangqi.gammaxiangqi.common.MovementValidatorsImpl.NoneMovementValidator;
 
 /**
  * The board is a container for the state of the game. It implements a hashmap to keep track of what is where.
@@ -30,6 +30,7 @@ public class Board {
 	 */
 	private Integer[] bounds = new Integer[2];
 	
+	private Integer[] palaceBoundaries = new Integer[4];
 
 	/**
 	 * Create a board
@@ -49,6 +50,17 @@ public class Board {
 	 */
 	public Integer[] getBounds() {
 		return bounds;
+	}
+	
+	public boolean isWithinPalace(XiangqiCoordinate coord)
+	{
+		
+		if (coord.getFile() > palaceBoundaries[0] && coord.getFile() < palaceBoundaries[1] &&
+				coord.getRank() > palaceBoundaries[2] && coord.getRank() < palaceBoundaries[3])
+			return true;
+		
+		return false;
+		
 	}
 
 	/**
@@ -137,6 +149,10 @@ public class Board {
 			int step = (to.getFile() - from.getFile()) / Math.abs(from.getFile() - to.getFile());
 			while (i != to.getFile()) {
 				i += step;
+				
+				if (i == to.getFile())
+					break;
+				
 				XiangqiCoordinate x = TestCoordinate.makeCoordinate(to.getRank(), i);
 				if (getPieceAt(x).getPieceType() != XiangqiPieceType.NONE)
 					return true;
@@ -149,6 +165,10 @@ public class Board {
 			int step = (to.getRank() - from.getRank()) / Math.abs(from.getRank() - to.getRank());
 			while (i != to.getRank()) {
 				i += step;
+				
+				if (i == to.getRank())
+					break;
+				
 				XiangqiCoordinate x = TestCoordinate.makeCoordinate(i, to.getFile());
 
 				if (getPieceAt(x).getPieceType() != XiangqiPieceType.NONE)
@@ -162,6 +182,9 @@ public class Board {
 
 			int step = (to.getRank() - from.getRank()) / Math.abs(to.getFile() - from.getFile());
 			while (i != to.getFile()) {
+				
+				if (i == to.getFile())
+					break;
 				i += step;
 				XiangqiCoordinate x = TestCoordinate.makeCoordinate(step + from.getRank(), step + from.getFile());
 
