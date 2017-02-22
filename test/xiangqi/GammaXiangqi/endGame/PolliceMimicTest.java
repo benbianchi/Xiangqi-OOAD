@@ -7,7 +7,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Copyright ©2016-2017 Gary F. Pollice
+ * Copyright ï¿½2016-2017 Gary F. Pollice
  *******************************************************************************/
 
 package xiangqi.GammaXiangqi.endGame;
@@ -27,11 +27,12 @@ import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
 import xiangqi.studentbgbianchi.gammaxiangqi.GammaXiangqiGame;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.GammaBoard;
-import xiangqi.studentbgbianchi.gammaxiangqi.exception.CompletionException;
 
 import static xiangqi.common.MoveResult.*;
 import static xiangqi.common.XiangqiColor.*;
 import static xiangqi.common.XiangqiPieceType.*;
+
+import java.util.concurrent.CompletionException;
 /**
  * Self-contained master tests
  * @version Feb 14, 2017

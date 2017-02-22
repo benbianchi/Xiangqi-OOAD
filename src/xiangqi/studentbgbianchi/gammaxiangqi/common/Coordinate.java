@@ -11,9 +11,22 @@ import xiangqi.common.XiangqiCoordinate;
  */
 public class Coordinate implements XiangqiCoordinate {
 
+	/**
+	 * The Row that is used for XiangqiCoordinate
+	 */
 	private int rank;
+	
+	/**
+	 * The Column that is used for XiangqiCoordinate.
+	 */
 	private int file;
 	
+	/**
+	 * A factory method for creating coordinates.
+	 * @param rank the Row used in the coordinate
+	 * @param file the Column used in the coordinate
+	 * @return a new instance of a Coordinate
+	 */
 	public static Coordinate makeCoordinate(int rank, int file)
 	{
 		return new Coordinate(rank,file);
@@ -39,6 +52,7 @@ public class Coordinate implements XiangqiCoordinate {
 		return file;
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		int sum = rank + file;
@@ -65,11 +79,21 @@ public class Coordinate implements XiangqiCoordinate {
 		
 	}
 	
+	/**
+	 * A function to see if a coordinate is orthogonal to another.
+	 * @param c the coordinate we are testing is orthogonal
+	 * @return a boolean is true if the coordinate is on the same axis (x, or y).
+	 */
 	public boolean isOrthogonal(XiangqiCoordinate c)
 	{
 		return c.getRank() == rank || c.getFile() == file;
 	}
 	
+	/**
+	 * A function to see if a coordinate is diagonal to another.
+	 * @param c the coordinate we are testing is diagonal
+	 * @return a boolean is true if the coordinate is on the has a slope of +-1.
+	 */
 	public boolean isDiagonal(XiangqiCoordinate c)
 	{
 		if (!isOrthogonal(c))
@@ -78,11 +102,21 @@ public class Coordinate implements XiangqiCoordinate {
 		return false;
 	}
 	
+	/**
+	 * A function that computes the distance from one coordinate to another.
+	 * @param c the coordinate we are computing the distance to
+	 * @return an integer representing the distance between two points.
+	 */
 	public int distanceTo(XiangqiCoordinate c)
 	{
 		return Math.abs( rank - c.getRank() ) +  Math.abs(file - c.getFile()) ;
 	}
 	
+	/**
+	 * A function to see if a coordinate is farther down the ranks..
+	 * @param c the coordinate we are testing is further forward.
+	 * @return a boolean is true if the coordinate has a higher rank.
+	 */
 	public boolean isForward(XiangqiCoordinate c)
 	{
 		return c.getRank() > rank;

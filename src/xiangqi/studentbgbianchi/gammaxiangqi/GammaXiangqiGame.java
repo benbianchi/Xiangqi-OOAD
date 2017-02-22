@@ -1,5 +1,7 @@
 package xiangqi.studentbgbianchi.gammaxiangqi;
 
+import java.util.concurrent.CompletionException;
+
 import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
@@ -20,24 +22,24 @@ import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidatorsImpl.Eleph
 import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidatorsImpl.GeneralMovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidatorsImpl.HorseMovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidatorsImpl.SoldierMovementValidator;
-import xiangqi.studentbgbianchi.gammaxiangqi.exception.CompletionException;
 
 public class GammaXiangqiGame extends BetaXiangqiGame{
 
 	protected static final String NO_ERROR = "";
-	protected final int BETA_XQ_MOVECOUNT = 20;
+	
+	private static final int GAMMA_XQ_MOVECOUNT = 25;
 	protected final String ERROR_ILLEGAL_MOVE = "Error. The move you provided is illegal in Beta Xiangqi.";
 	protected GammaBoard board;
 	protected Integer[] palaceBoundaries = {0,4,3,7};
 	protected String error;
 	protected XiangqiColor color = XiangqiColor.RED;
-	protected int moveCount = 0;
+	protected int moveCount = GAMMA_XQ_MOVECOUNT;
 	
 	public GammaXiangqiGame()
 	{
 		this.initialize();
 	}
-	private static final int GAMMA_XQ_MOVECOUNT = 25;
+	
 	
 	
 	
@@ -208,7 +210,7 @@ public class GammaXiangqiGame extends BetaXiangqiGame{
 			return MoveResult.DRAW;
 
 		if (!DefaultMovementValidator.isNewMovementWithinBounds(destination))
-			throw new CompletionException("BAD COORDS");
+			throw new CompletionException(new RuntimeException());
 
 		XiangqiPiece piece = getPieceAt(source, color);
 		

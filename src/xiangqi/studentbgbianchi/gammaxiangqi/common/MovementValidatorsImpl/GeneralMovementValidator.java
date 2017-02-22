@@ -26,7 +26,7 @@ public class GeneralMovementValidator extends DefaultMovementValidator {
 		if (super.validate(fromCoord, toCoord) != MoveResult.OK)
 			return MoveResult.ILLEGAL;
 		
-		if (this.board.isWithinPalace(toCoord) && isGeneralMovingOrthognally(fromCoord,toCoord) )
+		if (this.board.isWithinPalace(toCoord) && fromCoord.isOrthogonal(toCoord) )
 				return MoveResult.OK;
 			
 		
@@ -35,15 +35,10 @@ public class GeneralMovementValidator extends DefaultMovementValidator {
 	}
 	
 
-	boolean isGeneralMovingOrthognally(XiangqiCoordinate fromCoord, XiangqiCoordinate toCoord) {
-		
-		if (fromCoord.getRank() == toCoord.getRank() || fromCoord.getFile() == toCoord.getFile())
-			return true;
-		
-		return false;
-	}
 
-
+	/**
+	 * This occurs if the generals are facing eachother. Glorified handler for verticalSearch for blocking.
+	 */
 	public MoveResult isFlyingGeneral(XiangqiCoordinate fromCoord, XiangqiCoordinate toCoord)
 	{
 		//How to check this?

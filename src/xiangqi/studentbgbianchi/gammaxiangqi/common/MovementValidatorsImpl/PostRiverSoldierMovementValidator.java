@@ -6,6 +6,9 @@ import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidators.DefaultMo
 
 public class PostRiverSoldierMovementValidator extends DefaultMovementValidator {
 	@Override
+	/**
+	 * The soldier can move orthogonally, but one by one after the river.
+	 */
 	public MoveResult validate(Coordinate to, Coordinate from)
 	{
 		if (to.isOrthogonal(from) && to.distanceTo(from) == 1)

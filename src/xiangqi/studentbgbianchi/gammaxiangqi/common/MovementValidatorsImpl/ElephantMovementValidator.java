@@ -8,6 +8,9 @@ import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidators.MovementV
 public class ElephantMovementValidator extends DefaultMovementValidator{
 
 	@Override
+	/**
+	 * The Elephant can jump 2 diagonally and not cross the river.
+	 */
 	public MoveResult validate(Coordinate fromCoord, Coordinate toCoord) {
 		System.out.println(fromCoord.isDiagonal(toCoord));
 		System.out.println(fromCoord.distanceTo(toCoord));

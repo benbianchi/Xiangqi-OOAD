@@ -30,6 +30,9 @@ public class Board {
 	 */
 	private Integer[] bounds = new Integer[2];
 	
+	/**
+	 * The integer array that is used to store the palace. It works as {MinRank,MaxRank,MinFile,MaxFile}
+	 */
 	public Integer[] palaceBoundaries = new Integer[4];
 
 	/**
@@ -52,6 +55,12 @@ public class Board {
 		return bounds;
 	}
 	
+	/**
+	 * A function that sees if a coordinate is within the palace. The Game will usually define what is the 
+	 * palace.
+	 * @param coord the coordinate we are testing whether it is within the palace
+	 * @return a boolean denoting whether or not the coordinate is within the palace
+	 */
 	public boolean isWithinPalace(XiangqiCoordinate coord)
 	{
 		/**
@@ -125,23 +134,57 @@ public class Board {
 		if (from.equals(to))
 			return false;
 		
-		if (from.getRank() == to.getRank()) {// Horizontal;
+		if (from.getRank() == to.getRank())
+			return searchHorizontally(from,to);
+		
+		if (from.getFile() == to.getFile())
+			return searchVertically(from,to);
+		
+		if (Math.abs(to.getRank() - from.getRank()) / Math.abs(to.getFile() - from.getFile()) == 1) 
+			return searchDiagonally(from,to);
+		
+		return false;
+
+	}
+
+	/**
+	 * SearchDiagonally searches from a coordinate to another one, seeing if there is anything inhabitting the 
+	 * coordinate.
+	 * @param from the Coordinate to start from
+	 * @param to the Coordinate to end up at
+	 * @return a boolean denoting if there is something blocking from to to
+	 */
+	private boolean searchDiagonally(XiangqiCoordinate from, XiangqiCoordinate to) {
+		
+		
 			int i = from.getFile();
-			int step = (to.getFile() - from.getFile()) / Math.abs(from.getFile() - to.getFile());
+
+			int step = (to.getRank() - from.getRank()) / Math.abs(to.getFile() - from.getFile());
 			while (i != to.getFile()) {
-				i += step;
 				
 				if (i == to.getFile())
 					break;
-				
-				XiangqiCoordinate x = Coordinate.makeCoordinate(to.getRank(), i);
+				i += step;
+				XiangqiCoordinate x = Coordinate.makeCoordinate(step + from.getRank(), step + from.getFile());
+
 				if (getPieceAt(x).getPieceType() != XiangqiPieceType.NONE)
 					return true;
 			}
+		
+		return false;
 
-			return false;
-		}
-		if (from.getFile() == to.getFile()) {
+		
+	}
+	
+	/**
+	 * SearchVertically searches from coord to another one, vertically, seeing if there is anything inhabitting the 
+	 * coordinate.
+	 * @param from the Coordinate to start from
+	 * @param to the Coordinate to end up at
+	 * @return a boolean denoting if there is something blocking from to to
+	 */
+	private boolean searchVertically(XiangqiCoordinate from, XiangqiCoordinate to) {
+		
 			int i = from.getFile();
 			int step = (to.getRank() - from.getRank()) / Math.abs(from.getRank() - to.getRank());
 			while (i != to.getRank()) {
@@ -157,26 +200,34 @@ public class Board {
 			}
 
 			return false;
-		}
-		if (Math.abs(to.getRank() - from.getRank()) / Math.abs(to.getFile() - from.getFile()) == 1) {
+			
+		
+	}
+	/**
+	 * SearchHorizontally searches from a coordinate to another one horizontally seeing if there is anything inhabitting the 
+	 * coordinate.
+	 * @param from the Coordinate to start from
+	 * @param to the Coordinate to end up at
+	 * @return a boolean denoting if there is something blocking from to to
+	 */
+	private boolean searchHorizontally(XiangqiCoordinate from, XiangqiCoordinate to) {
+		
+		
 			int i = from.getFile();
-
-			int step = (to.getRank() - from.getRank()) / Math.abs(to.getFile() - from.getFile());
+			int step = (to.getFile() - from.getFile()) / Math.abs(from.getFile() - to.getFile());
 			while (i != to.getFile()) {
+				i += step;
 				
 				if (i == to.getFile())
 					break;
-				i += step;
-				XiangqiCoordinate x = Coordinate.makeCoordinate(step + from.getRank(), step + from.getFile());
-
+				
+				XiangqiCoordinate x = Coordinate.makeCoordinate(to.getRank(), i);
 				if (getPieceAt(x).getPieceType() != XiangqiPieceType.NONE)
 					return true;
 			}
-		}
-		return false;
 
-		// Diagonal
-
+			return false;
+		
 	}
 
 	/**

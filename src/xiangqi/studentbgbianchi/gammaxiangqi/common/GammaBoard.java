@@ -12,9 +12,19 @@ public class GammaBoard extends xiangqi.studentbgbianchi.betaxiangqi.common.Boar
 		super(10, 10);
 	}
 	
+	/**
+	 * River is the row that only a few pieces can cross, and some change behavior.
+	 */
 	Integer RIVER_ROW = 6;
 	
+	
 	@Override
+	/**
+	 * A function that sees if a coordinate is within the palace. The Game will usually define what is the 
+	 * palace.
+	 * @param coord the coordinate we are testing whether it is within the palace
+	 * @return a boolean denoting whether or not the coordinate is within the palace
+	 */
 	public XiangqiPiece getPieceAt(XiangqiCoordinate coord) {
 		XiangqiPiece p = mapCoordToPiece.get(coord);
 		XiangqiCoordinate c = Coordinate.makeCoordinate(coord.getRank(), coord.getFile());
@@ -32,7 +42,11 @@ public class GammaBoard extends xiangqi.studentbgbianchi.betaxiangqi.common.Boar
 
 	}
 	
+	
 	@Override
+	/* (non-Javadoc)
+	 * @see xiangqi.betaxiangqi.BetaXiangqi#isWithinPalace
+	 */
 	public boolean isWithinPalace(XiangqiCoordinate coord)
 	{
 		/**
@@ -45,6 +59,10 @@ public class GammaBoard extends xiangqi.studentbgbianchi.betaxiangqi.common.Boar
 		
 	}
 	
+	/**
+	 * Hook used to denote where the river is in GammaXiangqi
+	 * @return the row that is the river row (default is 6 for GammaXiangqi).
+	 */
 	public Integer getRiverRow()
 	{
 		return RIVER_ROW;

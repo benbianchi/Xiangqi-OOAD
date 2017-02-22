@@ -5,6 +5,9 @@ import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidators.DefaultMovementValidator;
 
 public class PreRiverSoldierMovementValidator extends DefaultMovementValidator {
+	/**
+	 * The soldier can only move forwards before the river.
+	 */
 	@Override
 	public MoveResult validate(Coordinate to, Coordinate from)
 	{

@@ -11,7 +11,7 @@ public class SoldierMovementValidator extends DefaultMovementValidator {
 	/**
 	 * see #MovementValidator.validate
 	 * 
-	 * This movement validator ensures that the soldier only moves forwards.
+	 * This movement validator ensures that the soldier only moves forwards. Until it crosses the river
 	 */
 	public MoveResult validate(Coordinate fromCoord, Coordinate toCoord) {
 		
