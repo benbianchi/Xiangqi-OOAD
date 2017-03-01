@@ -13,7 +13,9 @@ import xiangqi.common.XiangqiGame;
 import xiangqi.common.XiangqiGameVersion;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
+import xiangqi.student.bgbianchi.betaxiangqi.BetaBoard;
 import xiangqi.student.bgbianchi.betaxiangqi.BetaXiangqiGame;
+import xiangqi.student.bgbianchi.common.AbsMovementValidator;
 import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidatorsImpl.ChariotMovementValidator;
 import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidatorsImpl.GeneralMovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
@@ -28,9 +30,9 @@ public class GeneralMovementValidatorTest {
 	public void setup() {
 		
 		beta  = (BetaXiangqiGame) XiangqiGameFactory.makeXiangqiGame(XiangqiGameVersion.BETA_XQ);
-		beta.createTestBoard();
 		
 		
+		AbsMovementValidator.setBounds(new BetaBoard());
 		//Move Adivsors outta the way.
 		
 

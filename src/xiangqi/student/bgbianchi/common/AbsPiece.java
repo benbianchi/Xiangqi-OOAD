@@ -1,7 +1,7 @@
 /**
  * 
  */
-package xiangqi.studentbgbianchi.betaxiangqi.common;
+package xiangqi.student.bgbianchi.common;
 
 import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
@@ -9,24 +9,21 @@ import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
 import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidators.MovementValidator;
+import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidatorsImpl.NoneMovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 
 /**
  * @author ben
  *
  */
-public class PieceImpl implements XiangqiPiece {
+public class AbsPiece implements XiangqiPiece {
 
 	private final XiangqiColor color;
 	private final XiangqiPieceType pieceType;
 	private final MovementValidator validator;
 	
-	public static XiangqiPiece makePiece(XiangqiPieceType pieceType, XiangqiColor color, MovementValidator v )
-	{
-		return new PieceImpl(pieceType,color, v);
-	}
 	
-	private PieceImpl(XiangqiPieceType pieceType, XiangqiColor color, MovementValidator validator)
+	public AbsPiece(XiangqiPieceType pieceType, XiangqiColor color, MovementValidator validator)
 	{
 		this.validator = validator;
 		this.pieceType = pieceType;
@@ -56,6 +53,12 @@ public class PieceImpl implements XiangqiPiece {
 		Coordinate cDest= Coordinate.makeCoordinate(destination.getRank(), destination.getFile());
 		return validator.validate(cSource, cDest);
 		
+	}
+
+	public static AbsPiece makePiece(XiangqiPieceType t, XiangqiColor c,
+			NoneMovementValidator mv) {
+		// 
+		return new AbsPiece(t,c,mv);
 	}
 
 }

@@ -1,12 +1,17 @@
 package xiangqi.studentbgbianchi.gammaxiangqi.common;
 
+import java.util.concurrent.CompletionException;
+
 import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
+import xiangqi.student.bgbianchi.common.AbsBoard;
+import xiangqi.student.bgbianchi.common.AbsMovementValidator;
+import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidators.DefaultMovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidatorsImpl.NoneMovementValidator;
 
-public class GammaBoard extends xiangqi.studentbgbianchi.betaxiangqi.common.Board {
+public class GammaBoard extends AbsBoard {
 
 	public GammaBoard() {
 		super(10, 10);
@@ -26,19 +31,11 @@ public class GammaBoard extends xiangqi.studentbgbianchi.betaxiangqi.common.Boar
 	 * @return a boolean denoting whether or not the coordinate is within the palace
 	 */
 	public XiangqiPiece getPieceAt(XiangqiCoordinate coord) {
-		XiangqiPiece p = mapCoordToPiece.get(coord);
-		XiangqiCoordinate c = Coordinate.makeCoordinate(coord.getRank(), coord.getFile());
 
-		p = mapCoordToPiece.get(c);
-	
-		if (p != null)
-			return p;
-
-		/*
-		 * if (mapCoordToPiece.containsKey(coord)) return
-		 * mapCoordToPiece.get(coord); else
-		 */
-		return (XiangqiPiece) GammaPieceImpl.makePiece(XiangqiPieceType.NONE, XiangqiColor.NONE, new NoneMovementValidator());
+		if (!DefaultMovementValidator.isNewMovementWithinBounds(coord) )
+			throw new CompletionException(new RuntimeException());
+		
+		return super.getPieceAt(coord);
 
 	}
 	

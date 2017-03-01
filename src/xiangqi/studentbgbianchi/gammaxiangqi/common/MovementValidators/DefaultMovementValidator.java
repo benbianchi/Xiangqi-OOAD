@@ -5,7 +5,6 @@ import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiPiece;
-import xiangqi.studentbgbianchi.betaxiangqi.common.Board;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.GammaBoard;
 

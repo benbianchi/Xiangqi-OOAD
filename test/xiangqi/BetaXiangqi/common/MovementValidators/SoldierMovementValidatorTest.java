@@ -13,8 +13,6 @@ import xiangqi.common.XiangqiGame;
 import xiangqi.common.XiangqiGameVersion;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
-import xiangqi.studentbgbianchi.betaxiangqi.common.PieceImpl;
-import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidatorsImpl.SoldierMovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 
 public class SoldierMovementValidatorTest {
@@ -27,7 +25,6 @@ public class SoldierMovementValidatorTest {
 	public void setup() {
 		
 		beta  = XiangqiGameFactory.makeXiangqiGame(XiangqiGameVersion.BETA_XQ);
-		
 		beta.initialize();
 		
 
@@ -57,8 +54,11 @@ public class SoldierMovementValidatorTest {
 		redPiece = beta.getPieceAt(Coordinate.makeCoordinate(2, 3), XiangqiColor.RED);
 		
 		beta.makeMove(redSoldierCoord, redSoldierForwardCoord);
+		beta.makeMove(redSoldierCoord, redSoldierForwardCoord);
 		
-		MoveResult r = beta.makeMove(redSoldierForwardCoord, redSoldierCoord);
+		assertEquals(MoveResult.ILLEGAL,	beta.makeMove(redSoldierForwardCoord, redSoldierForwardCoord)); //Should be illegal
+		
+		MoveResult r = beta.makeMove(redSoldierForwardCoord, redSoldierForwardCoord); //This actually moves the black soldier back!
 		assertEquals(r,MoveResult.ILLEGAL);
 		assertEquals(true,beta.getMoveMessage().length() > 1);
 		

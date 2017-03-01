@@ -9,10 +9,10 @@ import xiangqi.common.XiangqiGame;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
 import xiangqi.student.bgbianchi.betaxiangqi.BetaXiangqiGame;
+import xiangqi.student.bgbianchi.common.AbsBoard;
+import xiangqi.student.bgbianchi.common.AbsXiangqiGame;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.GammaBoard;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.GammaPieceImpl;
-import xiangqi.studentbgbianchi.betaxiangqi.common.Board;
-import xiangqi.studentbgbianchi.betaxiangqi.common.PieceImpl;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidators.DefaultMovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidatorsImpl.AdvisorMovementValidator;
@@ -23,16 +23,40 @@ import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidatorsImpl.Gener
 import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidatorsImpl.HorseMovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidatorsImpl.SoldierMovementValidator;
 
-public class GammaXiangqiGame extends BetaXiangqiGame{
+public class GammaXiangqiGame extends AbsXiangqiGame{
 
+	/*
+	 * The default message for no error.
+	 */
 	protected static final String NO_ERROR = "";
 	
-	private static final int GAMMA_XQ_MOVECOUNT = 25;
-	protected final String ERROR_ILLEGAL_MOVE = "Error. The move you provided is illegal in Beta Xiangqi.";
+	/*
+	 * The Initial count of moves that decrements when makeMove is invoked
+	 */
+	private static final int GAMMA_XQ_MOVECOUNT = 25*2;
+	/*
+	 * The default message for illegal moves.
+	 */
+	protected final String ERROR_ILLEGAL_MOVE = "Error. The move you provided is illegal in Gamma Xiangqi.";
+	/*
+	 * The board used in GammaXiangqi
+	 */
 	protected GammaBoard board;
+	/*
+	 * The palace boundaries as described in the design doc.
+	 */
 	protected Integer[] palaceBoundaries = {0,4,3,7};
+	/*
+	 * The variable that is populated with error messages.
+	 */
 	protected String error;
+	/*
+	 * The default color
+	 */
 	protected XiangqiColor color = XiangqiColor.RED;
+	/*
+	 * The variable used in moveCount.
+	 */
 	protected int moveCount = GAMMA_XQ_MOVECOUNT;
 	
 	public GammaXiangqiGame()
@@ -204,17 +228,26 @@ public class GammaXiangqiGame extends BetaXiangqiGame{
 		
 	}
 
+	/**
+	 * See BetaXiangqi.makeMove
+	 * Works identically, however, the user is not penalyzed for supplying illegal moves.
+	 */
 	@Override
 	public MoveResult makeMove(XiangqiCoordinate source, XiangqiCoordinate destination) {
+		
+		/**
+		 * Check to see if we are out of moves.
+		 */
 		if (moveCount < 0)
 			return MoveResult.DRAW;
 
-		if (!DefaultMovementValidator.isNewMovementWithinBounds(destination))
-			throw new CompletionException(new RuntimeException());
 
+		/**
+		 * Perform move.
+		 */
 		XiangqiPiece piece = getPieceAt(source, color);
-		
 		MoveResult result = ((GammaPieceImpl) piece).validate(source, destination);
+		
 		
 		if (piece.getColor() != color)
 			result = MoveResult.ILLEGAL;
@@ -226,6 +259,9 @@ public class GammaXiangqiGame extends BetaXiangqiGame{
 		}	
 		else
 		{
+			/**
+			 * Succesful case: actually move the piece and change the turn.
+			 */
 			this.error = NO_ERROR;
 			removePiece(source,color);
 			XiangqiPiece xpiece = getPieceAt(source, color);
@@ -233,10 +269,21 @@ public class GammaXiangqiGame extends BetaXiangqiGame{
 			
 			xpiece = getPieceAt(destination, color);
 			
+
+				
 			if (color == XiangqiColor.BLACK)
+				{
 				color = XiangqiColor.RED;
+				if (isGeneralCheckmated(color))
+					return MoveResult.BLACK_WINS;
+					
+				}
 			else
+				{
 				color = XiangqiColor.BLACK;
+				if (isGeneralCheckmated(color))
+					return MoveResult.RED_WINS;
+				}
 			
 			moveCount--;
 		}
@@ -262,6 +309,9 @@ public class GammaXiangqiGame extends BetaXiangqiGame{
 
 	}
 	
+	/**
+	 * Removes the piece on the board. Uses aspect to choose coord.
+	 */
 	public XiangqiPiece removePiece(XiangqiCoordinate where, XiangqiColor aspect) {
 
 		if (aspect == XiangqiColor.BLACK)
@@ -270,7 +320,9 @@ public class GammaXiangqiGame extends BetaXiangqiGame{
 		return this.board.removePiece(where);
 
 	}
-
+	/**
+	 * places a piece within the board. Uses aspect to choose coord.
+	 */
 	public void placePiece(XiangqiPiece piece, XiangqiCoordinate where, XiangqiColor aspect) {
 
 		if (aspect == XiangqiColor.BLACK)
@@ -285,7 +337,7 @@ public class GammaXiangqiGame extends BetaXiangqiGame{
 	 * Getter for board
 	 * @return board that is currently being used by game
 	 */
-	public Board getBoard() {
+	public AbsBoard getBoard() {
 		return board;
 	}
 
@@ -295,13 +347,16 @@ public class GammaXiangqiGame extends BetaXiangqiGame{
 	 * @param c the Coordinate transformed
 	 * @return The new converted coordinate
 	 */
-	public static XiangqiCoordinate convertRedCoordToBlackAspect(Board board, XiangqiCoordinate c) {
+	public static XiangqiCoordinate convertRedCoordToBlackAspect(AbsBoard board, XiangqiCoordinate c) {
 		int conversionOffset = board.getBounds().clone()[0];
 
 		conversionOffset = conversionOffset + 1 - c.getRank();
 		// Rank File
 		return Coordinate.makeCoordinate(conversionOffset, c.getFile());
 	}
+	/**
+	 * See Function in BetaXiangqi.
+	 */
 	@Override
 	protected boolean canAttack(XiangqiPiece p, XiangqiCoordinate from, XiangqiCoordinate to) {
 		if (((GammaPieceImpl) p).validate(from, to) == MoveResult.OK)

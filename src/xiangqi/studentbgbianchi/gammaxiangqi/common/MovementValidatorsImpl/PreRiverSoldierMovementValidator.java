@@ -9,9 +9,9 @@ public class PreRiverSoldierMovementValidator extends DefaultMovementValidator {
 	 * The soldier can only move forwards before the river.
 	 */
 	@Override
-	public MoveResult validate(Coordinate to, Coordinate from)
+	public MoveResult validate(Coordinate from, Coordinate to)
 	{
-		if (to.isForward(from) && to.distanceTo(from) == 1)
+		if (to.isForward(from,this.board.getPieceAt(from).getColor()) && to.distanceTo(from) == 1)
 			return MoveResult.OK;
 		
 		return MoveResult.ILLEGAL;

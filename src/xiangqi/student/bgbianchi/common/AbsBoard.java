@@ -1,4 +1,4 @@
-package xiangqi.studentbgbianchi.betaxiangqi.common;
+package xiangqi.student.bgbianchi.common;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -18,7 +18,7 @@ import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
  * @author ben
  *
  */
-public class Board {
+public abstract class AbsBoard {
 
 	/**
 	 * The data structure housing the state of the game
@@ -40,7 +40,7 @@ public class Board {
 	 * @param maxRow the Maximum Row Count
 	 * @param maxCol the Maximum Column Count
 	 */
-	public Board(int maxRow, int maxCol) {
+	public AbsBoard(int maxRow, int maxCol) {
 		mapCoordToPiece = new HashMap<>();
 
 		this.bounds[0] = maxRow;
@@ -57,20 +57,13 @@ public class Board {
 	
 	/**
 	 * A function that sees if a coordinate is within the palace. The Game will usually define what is the 
-	 * palace.
+	 * palace. The default functionality is this always returns true. The idea was that AlphaXQ could use this class.
 	 * @param coord the coordinate we are testing whether it is within the palace
 	 * @return a boolean denoting whether or not the coordinate is within the palace
 	 */
 	public boolean isWithinPalace(XiangqiCoordinate coord)
 	{
-		/**
-		 * As defined in Design doc for beta, cannot leave row 1 and bounds.
-		 */
-		if (coord.getFile() > palaceBoundaries[2] && coord.getFile() < palaceBoundaries[3] && coord.getRank() == 1)
-			return true;
-		
-		return false;
-		
+		return true;
 	}
 
 	/**
@@ -91,7 +84,7 @@ public class Board {
 		 * if (mapCoordToPiece.containsKey(coord)) return
 		 * mapCoordToPiece.get(coord); else
 		 */
-		return (XiangqiPiece) PieceImpl.makePiece(XiangqiPieceType.NONE, XiangqiColor.NONE, new NoneMovementValidator());
+		return AbsPiece.makePiece(XiangqiPieceType.NONE, XiangqiColor.NONE, new NoneMovementValidator());
 
 	}
 

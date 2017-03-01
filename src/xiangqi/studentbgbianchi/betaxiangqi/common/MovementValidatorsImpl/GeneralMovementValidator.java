@@ -5,7 +5,7 @@ import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiPiece;
 import xiangqi.common.XiangqiPieceType;
-import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidators.AbsMovementValidator;
+import xiangqi.student.bgbianchi.common.AbsMovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 
 public class GeneralMovementValidator extends AbsMovementValidator {
@@ -26,7 +26,7 @@ public class GeneralMovementValidator extends AbsMovementValidator {
 		if (super.validate(fromCoord, toCoord) != MoveResult.OK)
 			return MoveResult.ILLEGAL;
 		
-		if (this.board.isWithinPalace(toCoord) && isGeneralMovingOrthognally(fromCoord,toCoord) )
+		if (AbsMovementValidator.board.isWithinPalace(toCoord) && isGeneralMovingOrthognally(fromCoord,toCoord) )
 				return MoveResult.OK;
 			
 		
@@ -51,6 +51,7 @@ public class GeneralMovementValidator extends AbsMovementValidator {
 		//We also need to check if we are moving from one king to another.
 		
 		//get which king we are
+		
 		XiangqiPiece threatenedKing = AbsMovementValidator.board.getPieceAt(toCoord);
 		
 		

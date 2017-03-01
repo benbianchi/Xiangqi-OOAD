@@ -1,7 +1,7 @@
 /**
  * 
  */
-package xiangqi.studentbgbianch.versions.alphaxiangqi;
+package xiangqi.studentbgbianchi.versions.alphaxiangqi;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,6 +3,7 @@
  */
 package xiangqi.studentbgbianchi.gammaxiangqi.common;
 
+import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
 
 /**
@@ -117,9 +118,12 @@ public class Coordinate implements XiangqiCoordinate {
 	 * @param c the coordinate we are testing is further forward.
 	 * @return a boolean is true if the coordinate has a higher rank.
 	 */
-	public boolean isForward(XiangqiCoordinate c)
+	public boolean isForward(XiangqiCoordinate coord, XiangqiColor color)
 	{
-		return c.getRank() > rank;
+		if (color == XiangqiColor.RED)
+			return coord.getRank() > rank;
+		else
+			return coord.getRank() < rank;
 	}
 	
 }

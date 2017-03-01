@@ -8,7 +8,6 @@ import org.junit.Test;
 import xiangqi.XiangqiGameFactory;
 import xiangqi.common.XiangqiGame;
 import xiangqi.common.XiangqiGameVersion;
-import xiangqi.studentbgbianchi.betaxiangqi.common.Board;
 import xiangqi.studentbgbianchi.gammaxiangqi.GammaXiangqiGame;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.GammaBoard;

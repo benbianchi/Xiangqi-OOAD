@@ -14,7 +14,8 @@ import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiGameVersion;
 import xiangqi.common.XiangqiPieceType;
 import xiangqi.student.bgbianchi.betaxiangqi.BetaXiangqiGame;
-import xiangqi.studentbgbianchi.betaxiangqi.common.PieceImpl;
+import xiangqi.student.bgbianchi.common.AbsMovementValidator;
+import xiangqi.student.bgbianchi.common.impl.XQPiece;
 import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidatorsImpl.ChariotMovementValidator;
 import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidatorsImpl.GeneralMovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
@@ -35,15 +36,15 @@ public class EndGameTest {
 		game.createTestBoard();
 		
 		game.getBoard().placePiece(
-				PieceImpl.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.BLACK, new GeneralMovementValidator()),
+				XQPiece.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.BLACK, new GeneralMovementValidator()),
 				Coordinate.makeCoordinate(5, 5));
 		
 		game.getBoard().placePiece(
-				PieceImpl.makePiece(XiangqiPieceType.CHARIOT, XiangqiColor.RED, new ChariotMovementValidator()),
+				XQPiece.makePiece(XiangqiPieceType.CHARIOT, XiangqiColor.RED, new ChariotMovementValidator()),
 				Coordinate.makeCoordinate(4, 4));
 		
 		game.getBoard().placePiece(
-				PieceImpl.makePiece(XiangqiPieceType.CHARIOT, XiangqiColor.RED, new ChariotMovementValidator()),
+				XQPiece.makePiece(XiangqiPieceType.CHARIOT, XiangqiColor.RED, new ChariotMovementValidator()),
 				Coordinate.makeCoordinate(4, 5));
 		
 		boolean checkmate = game.isGeneralCheckmated(XiangqiColor.BLACK);
@@ -69,11 +70,11 @@ public class EndGameTest {
 		game = (BetaXiangqiGame) XiangqiGameFactory.makeXiangqiGame(XiangqiGameVersion.BETA_XQ);
 		game.createTestBoard();
 		game.getBoard().placePiece(
-				PieceImpl.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.BLACK, new GeneralMovementValidator()),
+				XQPiece.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.BLACK, new GeneralMovementValidator()),
 				Coordinate.makeCoordinate(5, 5));
 		
 		game.getBoard().placePiece(
-				PieceImpl.makePiece(XiangqiPieceType.CHARIOT, XiangqiColor.RED, new ChariotMovementValidator()),
+				XQPiece.makePiece(XiangqiPieceType.CHARIOT, XiangqiColor.RED, new ChariotMovementValidator()),
 				Coordinate.makeCoordinate(1, 1));
 		
 		boolean checkmate = game.isGeneralCheckmated(XiangqiColor.BLACK);
@@ -91,13 +92,13 @@ public class EndGameTest {
 		game = (BetaXiangqiGame) XiangqiGameFactory.makeXiangqiGame(XiangqiGameVersion.BETA_XQ);
 		game.createTestBoard();
 		game.getBoard().placePiece(
-				PieceImpl.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.BLACK, new GeneralMovementValidator()),
+				XQPiece.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.BLACK, new GeneralMovementValidator()),
 				blackGeneralCoords);
 		
 		game.getBoard().placePiece(
-				PieceImpl.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.RED, new GeneralMovementValidator()),
+				XQPiece.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.RED, new GeneralMovementValidator()),
 				redGeneralCoords);
-		
+		AbsMovementValidator.setBounds(game.getBoard());
 		MoveResult r = game.makeMove( redGeneralCoords, blackGeneralCoords );
 		
 		assertEquals(r,MoveResult.RED_WINS);
@@ -110,11 +111,11 @@ public class EndGameTest {
 		game = (BetaXiangqiGame) XiangqiGameFactory.makeXiangqiGame(XiangqiGameVersion.BETA_XQ);
 		game.createTestBoard();
 		game.getBoard().placePiece(
-				PieceImpl.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.BLACK, new GeneralMovementValidator()),
+				XQPiece.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.BLACK, new GeneralMovementValidator()),
 				Coordinate.makeCoordinate(5, 5));
 		
 		game.getBoard().placePiece(
-				PieceImpl.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.RED, new GeneralMovementValidator()),
+				XQPiece.makePiece(XiangqiPieceType.GENERAL, XiangqiColor.RED, new GeneralMovementValidator()),
 				Coordinate.makeCoordinate(5, 2));
 		
 		boolean checkmate = game.isGeneralCheckmated(XiangqiColor.BLACK);

@@ -1,17 +1,17 @@
-package xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidators;
+package xiangqi.student.bgbianchi.common;
 
 
 import xiangqi.common.MoveResult;
 import xiangqi.common.XiangqiColor;
 import xiangqi.common.XiangqiCoordinate;
 import xiangqi.common.XiangqiPiece;
-import xiangqi.studentbgbianchi.betaxiangqi.common.Board;
+import xiangqi.studentbgbianchi.betaxiangqi.common.MovementValidators.MovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 
 public class AbsMovementValidator implements MovementValidator {
 
 
-	public static Board board;
+	public static AbsBoard board;
 	
 	@Override
 	/**
@@ -35,12 +35,13 @@ public class AbsMovementValidator implements MovementValidator {
 
 	public boolean isSpaceNotOccupiedByAlly(XiangqiCoordinate fromCoord, XiangqiCoordinate toCoord)
 	{
-		XiangqiPiece p = board.getPieceAt(toCoord);
+		XiangqiPiece source = board.getPieceAt(fromCoord);
+		XiangqiPiece attacker = board.getPieceAt(toCoord);
 		
-		if (p.getColor() != XiangqiColor.NONE && p.getColor() == board.getPieceAt(fromCoord).getColor())
-			return false;
+		if (source.getColor() != attacker.getColor() || source.getColor() == XiangqiColor.NONE )
+			return true;
 		
-		return true;
+		return false;
 	}
 	
 	public boolean isNewMovementWithinBounds(XiangqiCoordinate toCoord)
@@ -52,7 +53,7 @@ public class AbsMovementValidator implements MovementValidator {
 		return false;
 	}
 	
-	public static void setBounds(Board board)
+	public static void setBounds(AbsBoard board)
 	{
 		AbsMovementValidator.board = board;
 	}

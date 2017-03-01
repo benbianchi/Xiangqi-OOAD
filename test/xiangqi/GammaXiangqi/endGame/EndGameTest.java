@@ -17,7 +17,6 @@ import xiangqi.common.XiangqiPieceType;
 import xiangqi.student.bgbianchi.betaxiangqi.BetaXiangqiGame;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidatorsImpl.ChariotMovementValidator;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.MovementValidatorsImpl.GeneralMovementValidator;
-import xiangqi.studentbgbianchi.betaxiangqi.common.PieceImpl;
 import xiangqi.studentbgbianchi.gammaxiangqi.GammaXiangqiGame;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.Coordinate;
 import xiangqi.studentbgbianchi.gammaxiangqi.common.GammaPieceImpl;
